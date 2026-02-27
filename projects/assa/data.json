@@ -1,0 +1,48 @@
+{
+  "nodes": [
+    {
+      "id": 1,
+      "label": "Nodo 1",
+      "x": 660,
+      "y": 264.5,
+      "w": 150,
+      "h": 80,
+      "bgColor": "#ffffff",
+      "longText": ""
+    },
+    {
+      "id": 2,
+      "label": "Input 2",
+      "x": 889,
+      "y": 423,
+      "w": 150,
+      "h": 80,
+      "bgColor": "#e1f5fe",
+      "longText": ""
+    },
+    {
+      "id": 3,
+      "label": "Output 3",
+      "x": 654,
+      "y": 588,
+      "w": 150,
+      "h": 80,
+      "bgColor": "#e8f5e9",
+      "longText": ""
+    }
+  ],
+  "connections": [
+    {
+      "from": 1,
+      "fromAnchor": "right",
+      "to": 2,
+      "toAnchor": "left"
+    },
+    {
+      "from": 2,
+      "fromAnchor": "left",
+      "to": 3,
+      "toAnchor": "right"
+    }
+  ]
+}

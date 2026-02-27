@@ -1,0 +1,121 @@
+/* .drag-zone, .icon-drag, .icon-pencil { display: none; } */
+
+
+body { margin: 0; font-family: 'Segoe UI', sans-serif; overflow: hidden; background: #1a1a1a; color: white; }
+#app { display: flex; height: 100vh; }
+
+#canvas-container { flex: 1; position: relative; overflow: hidden; background: #222; }
+#svg-canvas { width: 100%; height: 100%; cursor: crosshair; }
+
+/* Stile Nodi */
+.node-group { cursor: default; }
+
+.node-rect.selected { stroke: #007bff; stroke-width: 3; }
+
+
+/* Icone */
+.icon-btn { cursor: pointer; font-size: 14px; user-select: none; }
+.drag-handle { cursor: move; fill: #eee; }
+
+/* Connettori */
+.connector-dot { fill: #ff4757; stroke: white; stroke-width: 1; cursor: crosshair; opacity: 0; transition: opacity 0.2s; }
+.node-group:hover .connector-dot { opacity: 1; }
+.connector-dot:hover { r: 6; fill: #00ff00; }
+
+/* Linee */
+.connection-line {
+    fill: none;
+    stroke: #007bff;
+    stroke-width: 2;
+    /* Il marker si aggancia qui */
+    marker-end: url(#arrowhead);
+}
+
+/* Sidebar e Tabs */
+#sidebar { width: 350px; background: #252526; border-left: 1px solid #444; display: flex; flex-direction: column; }
+.tabs { display: flex; background: #333; }
+.tab-btn { flex: 1; padding: 12px; border: none; background: none; color: #888; cursor: pointer; }
+.tab-btn.active { color: white; border-bottom: 2px solid #007bff; background: #252526; }
+.tab-content { display: none; padding: 15px; flex: 1; }
+.tab-content.active { display: block; }
+textarea { width: 100%; height: 200px; background: #1e1e1e; color: #ccc; border: 1px solid #444; padding: 10px; }
+#toolbar { position: absolute; top: 15px; left: 15px; z-index: 10; display: flex; gap: 10px; }
+
+
+/* Troncamento testo SVG */
+.node-text {
+    fill: #333;
+    font-size: 14px;
+    font-weight: 600;
+    pointer-events: none; /* Importante per non bloccare il click sul rect */
+    font-family: sans-serif;
+    dominant-baseline: middle;
+    text-anchor: middle;
+}
+
+
+/* Area Drag */
+/*
+.drag-zone {
+    fill: #eee;
+    stroke: #ccc;
+    cursor: move;
+}
+    */
+/*
+.icon-drag {
+    fill: #666;
+    font-size: 16px;
+    pointer-events: none;
+}
+*/
+
+/*
+.icon-pencil {
+    cursor: pointer;
+    font-size: 14px;
+    fill: #666;
+    transition: fill 0.2s;
+}
+
+.icon-pencil:hover {
+    fill: #007bff;
+}
+*/
+
+
+/* Stile per il titolo del nodo (Tooltip) */
+.node-group title {
+    pointer-events: none;
+}
+
+
+
+
+.node-rect {
+    cursor: grab;
+    transition: filter 0.2s;
+}
+
+.node-rect:active {
+    cursor: grabbing;
+}
+
+.node-rect:hover {
+    filter: brightness(0.95);
+}
+
+
+
+
+#svg-canvas {
+    width: 100%;
+    height: 100%;
+    cursor: crosshair;
+    user-select: none; /* Impedisce la selezione accidentale di testo durante il drag */
+}
+
+/* Quando si trascina lo sfondo */
+#svg-canvas:active {
+    cursor: grabbing;
+}

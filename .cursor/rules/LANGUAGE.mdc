@@ -1,0 +1,5 @@
+---
+description: Preferenza lingua per le risposte dell'IA
+globs: **/*
+---
+L'utente parla italiano. Rispondi sempre in lingua italiana, mantenendo un tono professionale e tecnico. Il codice e i commenti tecnici devono invece seguire le regole del progetto (solitamente inglese).

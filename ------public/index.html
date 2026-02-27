@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="it">
+
+<head>
+    <meta charset="UTF-8">
+    <title>SVG Mermaid Builder</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="icons.css">
+    <script src="https://unpkg.com/lucide@latest"></script>
+</head>
+
+<body>
+    <div id="app">
+        <main id="canvas-container">
+            <div id="toolbar">
+                <button class="tool-btn" onclick="newGraph()" title="Nuovo Grafo">
+                    <i data-lucide="file-plus"></i>
+                </button>
+                <button class="tool-btn" onclick="openLoadPopup()" title="Apri Grafo">
+                    <i data-lucide="folder-open"></i>
+                </button>
+                <button class="tool-btn" onclick="handleSave()" title="Salva Grafo">
+                    <i data-lucide="save"></i>
+                </button>
+                <div style="border-left: 1px solid #555; margin: 0 5px;"></div>
+                <span id="current-project-display"
+                    style="color: #888; font-size: 12px; align-self: center; margin-left: 5px;">Senza nome</span>
+            </div>
+
+            <svg id="svg-canvas">
+                <defs>
+<defs>
+    <marker id="arrowhead" 
+            markerWidth="10" 
+            markerHeight="10" 
+            refX="10" 
+            refY="5" 
+            markerUnits="strokeWidth"
+            orient="auto-start-reverse">
+        <path d="M 0 0 L 10 5 L 0 10 z" fill="#007bff" />
+    </marker>
+</defs>
+                </defs>
+
+                <g id="main-group">
+                    <g id="connections-layer"></g>
+                    <g id="nodes-layer"></g>
+                </g>
+
+            </svg>
+        </main>
+
+        <aside id="sidebar">
+
+
+            <div class="tabs">
+                <button class="tab-btn active" onclick="openTab('node-tab')">Nodo</button>
+                <button class="tab-btn" onclick="openTab('graph-tab')">Grafo</button>
+                <button class="tab-btn" onclick="openTab('mermaid-tab')">Mermaid</button>
+            </div>
+
+            <div id="node-tab" class="tab-content active">
+                <button class="delete-node-btn-final" id="btn-delete-node" onclick="deleteNode(this.dataset.nodeId)">
+                    <i data-lucide="trash-2"></i> Elimina questo Nodo
+                </button>
+
+<button onclick="apriFileInVSCode()">Apri JSON nel tab accanto</button>
+
+<script>
+function apriFileInVSCode() {
+fetch('http://localhost:3000/apri-file')
+        .then(() => console.log("Comando inviato al server"))
+        .catch(err => console.error("Il server non risponde", err));
+}
+</script>
+
+                <label>Etichetta Nodo:</label>
+                <input type="text" id="edit-label" oninput="updateNodeLive()">
+
+                <label>Colore Sfondo:</label>
+                <input type="color" id="edit-color" oninput="updateNodeLive()">
+
+                <label>Note / Contenuto File:</label>
+                <textarea id="edit-text" oninput="updateNodeLive()"></textarea>
+
+                <div class="connections-manager">
+                    <label>Collegamenti attivi:</label>
+                    <div id="node-connections-list" class="connections-list"></div>
+                </div>
+            </div>
+
+            <div id="graph-tab" class="tab-content">
+                <label>Direzione Grafo:</label>
+                <select id="graph-dir" onchange="updateGraphSettings()">
+                    <option value="TD">Dall'alto in basso (TD)</option>
+                    <option value="LR">Da sinistra a destra (LR)</option>
+                </select>
+                <label>Titolo Progetto:</label>
+                <span id="current-project-display">Senza nome</span>
+            </div>
+
+            <div id="mermaid-tab" class="tab-content">
+                <pre id="mermaid-display"></pre>
+            </div>
+        </aside>
+    </div>
+
+
+    <div id="context-menu" class="context-menu">
+        <div class="menu-header">Aggiungi Nodo</div>
+        <div class="menu-section">
+            <div class="menu-item" onclick="addNode('tipo1')">
+                <i data-lucide="plus"></i> <span>Nodo Tipo 1</span>
+            </div>
+            <div class="menu-item" onclick="addNode('tipo2')">
+                <i data-lucide="plus"></i> <span>Nodo Tipo 2</span>
+            </div>
+            <div class="menu-item" onclick="addNode('tipo3')">
+                <i data-lucide="plus"></i> <span>Nodo Tipo 3</span>
+            </div>
+        </div>
+
+        <div class="menu-section">
+            <div class="menu-item" onclick="newGraph()">
+                <i data-lucide="file-plus"></i> <span>Nuovo Grafo</span>
+            </div>
+            <div class="menu-item" onclick="openLoadPopup()">
+                <i data-lucide="folder-open"></i> <span>Apri Grafo</span>
+            </div>
+            <div class="menu-item" onclick="handleSave()">
+                <i data-lucide="save"></i> <span>Salva</span>
+            </div>
+        </div>
+    </div>
+
+
+
+
+
+    <div id="load-popup" class="modal-overlay">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>I tuoi Grafi</h3>
+                <button onclick="closeLoadPopup()">&times;</button>
+            </div>
+            <div id="graphs-list" class="modal-body">
+                <p>Caricamento in corso...</p>
+            </div>
+        </div>
+    </div>
+
+<div id="custom-dialog" class="modal-overlay">
+    <div class="modal-content dialog-box">
+        <div class="modal-header">
+            <h3 id="dialog-title">Messaggio</h3>
+        </div>
+        <div class="modal-body">
+            <p id="dialog-message"></p>
+            <input type="text" id="dialog-input" class="modal-prompt-input" style="display:none;">
+        </div>
+        <div class="modal-footer" id="dialog-footer">
+            <button id="dialog-confirm-btn" class="modal-btn confirm">OK</button>
+            <button id="dialog-cancel-btn" class="modal-btn cancel">Annulla</button>
+        </div>
+    </div>
+</div>
+
+
+    <script src="script.js"></script>
+    <script>
+        // Inizializza le icone Lucide dopo il caricamento
+        lucide.createIcons();
+    </script>
+</body>
+
+</html>

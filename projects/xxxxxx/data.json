@@ -1,0 +1,83 @@
+{
+  "nodes": [
+    {
+      "id": 1,
+      "label": "Nodo 1",
+      "x": 131,
+      "y": 258,
+      "w": 150,
+      "h": 80,
+      "longText": ""
+    },
+    {
+      "id": 3,
+      "label": "fffff",
+      "x": 396,
+      "y": 268,
+      "w": 150,
+      "h": 80,
+      "longText": ""
+    },
+    {
+      "id": 4,
+      "label": "csccz",
+      "x": 676.6600482986979,
+      "y": 139.85520088298324,
+      "w": 150,
+      "h": 80,
+      "longText": "cczxcz<cxz<"
+    },
+    {
+      "id": 5,
+      "label": "Output 5",
+      "x": 796.1133172337674,
+      "y": 424.5351042855877,
+      "w": 150,
+      "h": 80,
+      "bgColor": "#e8f5e9",
+      "longText": ""
+    },
+    {
+      "id": 6,
+      "label": "Processo 6",
+      "x": 383,
+      "y": 89,
+      "w": 150,
+      "h": 80,
+      "bgColor": "#fff3e0",
+      "longText": ""
+    }
+  ],
+  "connections": [
+    {
+      "from": 3,
+      "fromAnchor": "left",
+      "to": 1,
+      "toAnchor": "right"
+    },
+    {
+      "from": 3,
+      "fromAnchor": "bottom",
+      "to": 4,
+      "toAnchor": "top"
+    },
+    {
+      "from": 4,
+      "fromAnchor": "top",
+      "to": 5,
+      "toAnchor": "bottom"
+    },
+    {
+      "from": 3,
+      "fromAnchor": "top-right",
+      "to": 6,
+      "toAnchor": "bottom-left"
+    },
+    {
+      "from": 3,
+      "fromAnchor": "right",
+      "to": 5,
+      "toAnchor": "left"
+    }
+  ]
+}

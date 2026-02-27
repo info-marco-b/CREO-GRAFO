@@ -1,0 +1,14 @@
+{
+  "nodes": [
+    {
+      "id": 1,
+      "label": "Nodo 1",
+      "x": 660,
+      "y": 264.5,
+      "w": 150,
+      "h": 80,
+      "longText": ""
+    }
+  ],
+  "connections": []
+}
